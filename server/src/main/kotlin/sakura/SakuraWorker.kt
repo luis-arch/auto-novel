@@ -213,7 +213,7 @@ class SakuraWorker(
                     it.chapterId == chapterId
                 }
                 if (chapterTranslationOutline?.translated != true) {
-                    // 未翻译
+                    // 未没有翻译
                     true
                 } else if (chapterTranslationOutline.glossaryUuid == novel.glossaryUuid) {
                     // 翻译未过期
