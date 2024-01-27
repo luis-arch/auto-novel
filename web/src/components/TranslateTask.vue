@@ -75,7 +75,7 @@ const startTask = async (
   const buildLabel = () => {
     let label = `${getTranslatorLabel(translatorDesc.id)}翻译`;
     if (params.translateExpireChapter) label += '[翻译过期章节]';
-    if (params.syncFromProvider) label += '[强同步]';
+    if (params.syncFromProvider) label += '[强制同步]';
     return label;
   };
   running.value = true;
