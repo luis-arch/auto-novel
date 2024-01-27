@@ -128,8 +128,8 @@ export class OpenAiTranslator implements SegmentTranslator {
       }
 
       retry += 1;
-      if (retry >= 3) {
-        if (failBecasueLineNumberNotMatch === 3 && seg.length > 1) {
+      if (retry >= 1) {
+        if (failBecasueLineNumberNotMatch === 1 && seg.length > 1) {
           this.log(`　连续三次行数不匹配，启动二分翻译`);
           break;
         } else {
