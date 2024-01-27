@@ -75,7 +75,7 @@ private fun JsonObjectBuilder.freeParam() {
 }
 
 private fun makePrompt(textToTranslate: String) =
-    "<reserved_106>将下面的日文文本翻译成中文：${textToTranslate}<reserved_107>";
+    "<reserved_106>将下面的日文文字翻译成中文：${textToTranslate}<reserved_107>";
 
 suspend fun sakuraTranslateSeg(
     client: HttpClient,
