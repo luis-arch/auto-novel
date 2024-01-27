@@ -34,7 +34,7 @@ export class Baidu {
     this.client
       .post('v2transapi', {
         body: new URLSearchParams({
-          from: 'jp',
+          from: 'en',
           to: 'zh',
           query,
           simple_means_flag: '3',
