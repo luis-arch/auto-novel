@@ -44,9 +44,9 @@ export class Youdao {
       .post('https://dict.youdao.com/webtranslate', {
         body: new URLSearchParams({
           i: query,
-          from: 'ja',
+          from: 'en',
           to: 'zh-CHS',
-          dictResult: 'true',
+          dictResult: 'tru
           keyid: 'webfanyi',
           ...getBaseBody(this.key),
         }),
