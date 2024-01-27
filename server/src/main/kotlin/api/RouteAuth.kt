@@ -187,12 +187,6 @@ class AuthApi(
         username: String,
         password: String,
     ): SignInDto {
-        if (username.length < 3) throwBadRequest("用户名至少为3个字符")
-        if (username.length > 15) throwBadRequest("用户名至多为15个字符")
-        if (password.length < 8) throwBadRequest("密码至少为8个字符")
-        if (userRepo.getByEmail(email) != null) throwConflict("邮箱已经被使用")
-        if (userRepo.getByUsername(username) != null) throwConflict("用户名已经被使用")
-        if (!userRepo.validateEmailCode(email, emailCode)) throwBadRequest("邮箱验证码错误")
 
         val role = User.Role.Normal
         val userId = userRepo.add(
