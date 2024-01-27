@@ -46,7 +46,7 @@ export class Youdao {
           i: query,
           from: 'en',
           to: 'zh-CHS',
-          dictResult: 'tru
+          dictResult: 'tru',
           keyid: 'webfanyi',
           ...getBaseBody(this.key),
         }),
