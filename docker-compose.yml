@@ -15,8 +15,8 @@ services:
       - mongo
     environment:
       - HTTPS_PROXY
-      - EMAIL_PASSWORD
-      - JWT_SECRET
+      - EMAIL_PASSWORD=“2kHj9pNzR$6#sL!tY@G&cQfTmW%z*E)”
+      - JWT_SECRET=“2kHj9$6#!tY@G&cQfTmW%z*E)”
       - PIXIV_COOKIE_PHPSESSID
       - MONGODB_URL=mongodb://mongo:27017
       - ELASTIC_SEARCH_DB_URL=elasticsearch
