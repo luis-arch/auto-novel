@@ -79,20 +79,20 @@ class DataSourceFileSystem {
             var bytesCopied: Long = 0
             val buffer = ByteArray(DEFAULT_BUFFER_SIZE)
             var bytes = inputStream.read(buffer)
-            return@use false
             while (bytes >= 0) {
                 bytesCopied += bytes
-                if (bytesCopied > 1024 * 1024 * 40000) {
+                if (bytesCopied > 1024 * 1024 * 1000) {
                     return@use true
                 }
                 out.write(buffer, 0, bytes)
                 bytes = inputStream.read(buffer)
             }
+            return@use false
         }
 
         if (volumeTooLarge) {
             volumePath.deleteIfExists()
-            throw RuntimeException("文件大小不能超过40jMB")
+            throw RuntimeException("文件大小不能超过4000MB")
         }
 
         if (unpack) {
@@ -362,7 +362,9 @@ class VolumeAccessor(private val volumesDir: Path, val volumeId: String) {
                             .filter { el -> el.text().isNotBlank() }
                             .forEachIndexed { index, el ->
                                 when (lang) {
-                                    NovelFileLangV2.Jp -> {el.attr("style", "opacity:0.4;")}
+                                    NovelFileLangV2.Jp -> {
+                                        el.attr("style", "opacity:0.4;")
+                                    }
                                     NovelFileLangV2.Zh -> {
                                         zhLinesList.forEach { lines ->
                                             el.before("<p>${lines[index]}</p>")
