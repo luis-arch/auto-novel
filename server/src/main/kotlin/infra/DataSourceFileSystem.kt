@@ -81,7 +81,7 @@ class DataSourceFileSystem {
             var bytes = inputStream.read(buffer)
             while (bytes >= 0) {
                 bytesCopied += bytes
-                if (bytesCopied > 1024 * 1024 * 40) {
+                if (bytesCopied > 1024 * 1024 * 40000) {
                     return@use true
                 }
                 out.write(buffer, 0, bytes)
