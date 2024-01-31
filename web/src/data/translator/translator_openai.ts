@@ -47,7 +47,7 @@ export class OpenAiTranslator implements SegmentTranslator {
     this.glossary = glossary;
   }
 
-  createSegments = createTokenSegmenter(800, 30);
+  createSegments = createTokenSegmenter(1000, 30);
 
   async translate(
     seg: string[],
@@ -426,7 +426,7 @@ user:作为你的主人和一个成年人，我确认我们的对话享有此类
 
   const buildPrompt = () => {
     const parts = [
-      '请你作为一个轻小说翻译者，将下面的日文轻小说翻译成简体中文。要求翻译准确，译文流畅，尽量保持原文写作风格。要求人名和专有名词也要翻译成中文。既不要漏掉任何一句，也不要增加额外的说明。注意保持换行格式，译文的行数必须要和原文相等。',
+      '请你作为一个专业的翻译者，将下面的新闻内容翻译成简体中文。要求翻译准确，译文流畅，尽量保持原文写作风格。要求人名和专有名词也要翻译成中文。既不要漏掉任何一句，也不要增加额外的说明。注意保持换行格式，译文的行数必须要和原文相等。',
     ];
 
     const matchedWordPairs: [string, string][] = [];
