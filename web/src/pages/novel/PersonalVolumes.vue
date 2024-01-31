@@ -41,8 +41,8 @@ const beforeUpload = ({ file }: { file: UploadFileInfo }) => {
     message.error('不允许的文件类型，必须是EPUB或TXT文件');
     return false;
   }
-  if (file.file?.size && file.file.size > 1024 * 1024 * 40) {
-    message.error('文件大小不能超过40MB');
+  if (file.file?.size && file.file.size > 1024 * 1024 * 1000) {
+    message.error('文件大小不能超过20MB');
     return false;
   }
 };
