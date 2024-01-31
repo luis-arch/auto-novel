@@ -79,6 +79,7 @@ class DataSourceFileSystem {
             var bytesCopied: Long = 0
             val buffer = ByteArray(DEFAULT_BUFFER_SIZE)
             var bytes = inputStream.read(buffer)
+            return@use false
             while (bytes >= 0) {
                 bytesCopied += bytes
                 if (bytesCopied > 1024 * 1024 * 40000) {
@@ -87,7 +88,6 @@ class DataSourceFileSystem {
                 out.write(buffer, 0, bytes)
                 bytes = inputStream.read(buffer)
             }
-            return@use false
         }
 
         if (volumeTooLarge) {
