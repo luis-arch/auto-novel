@@ -92,7 +92,7 @@ class DataSourceFileSystem {
 
         if (volumeTooLarge) {
             volumePath.deleteIfExists()
-            throw RuntimeException("文件大小不能超过40MB")
+            throw RuntimeException("文件大小不能超过40jMB")
         }
 
         if (unpack) {
@@ -322,7 +322,7 @@ class VolumeAccessor(private val volumesDir: Path, val volumeId: String) {
                     } else {
                         val jpLines = getChapter(chapterId)!!
                         val linesList = when (lang) {
-                            NovelFileLangV2.Jp -> throw RuntimeException("文库小说不允许日语下载")
+                            NovelFileLangV2.Jp -> listOf(jpLines)
                             NovelFileLangV2.Zh -> zhLinesList
                             NovelFileLangV2.JpZh -> listOf(jpLines) + zhLinesList
                             NovelFileLangV2.ZhJp -> zhLinesList + listOf(jpLines)
@@ -362,7 +362,7 @@ class VolumeAccessor(private val volumesDir: Path, val volumeId: String) {
                             .filter { el -> el.text().isNotBlank() }
                             .forEachIndexed { index, el ->
                                 when (lang) {
-                                    NovelFileLangV2.Jp -> throw RuntimeException("文库小说不允许日语下载")
+                                    NovelFileLangV2.Jp -> {el.attr("style", "opacity:0.4;")}
                                     NovelFileLangV2.Zh -> {
                                         zhLinesList.forEach { lines ->
                                             el.before("<p>${lines[index]}</p>")
