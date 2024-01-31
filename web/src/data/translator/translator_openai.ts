@@ -47,7 +47,7 @@ export class OpenAiTranslator implements SegmentTranslator {
     this.glossary = glossary;
   }
 
-  createSegments = createTokenSegmenter(1500, 30);
+  createSegments = createTokenSegmenter(800, 30);
 
   async translate(
     seg: string[],
