@@ -385,7 +385,7 @@ const deleteVolume = (index: number) => {
       <n-step title="创建小说">
         <div class="n-step-description"></div>
         <async-button
-          :disabled="submitCurrentStep !== 2"
+          :disabled="submitCurrentStep !== 3"
           type="primary"
           @async-click="submit"
         >
