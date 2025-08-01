@@ -1,6 +1,6 @@
 services:
   proxy:
-    image: ghcr.io/luis-arch/wneg-proxy
+    image: ghcr.nju.edu.cn/luis-arch/wneg-proxy
     ports:
       - 80:80
     volumes:
@@ -10,7 +10,7 @@ services:
     restart: always
 
   server:
-    image: ghcr.io/luis-arch/wneg-server
+    image: ghcr.nju.edu.cn/luis-arch/wneg-server
     depends_on:
       - mongo
     environment:
