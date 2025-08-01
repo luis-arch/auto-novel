@@ -18,7 +18,8 @@ COPY . /web
 WORKDIR /web
 
 # 安装依赖并构建（关键修改）
-RUN pnpm install --frozen-lockfile && \  # 移除--prod
+RUN npm i -g pnpm;
+    pnpm install --frozen-lockfile; \ 
     pnpm run build
 
 # 后续阶段保持不变
