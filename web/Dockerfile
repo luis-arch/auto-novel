@@ -18,7 +18,7 @@ COPY . /web
 WORKDIR /web
 
 # 安装依赖并构建（关键修改）
-RUN npm i -g pnpm;
+RUN npm i -g pnpm; \
     pnpm install --frozen-lockfile; \ 
     pnpm run build
 
