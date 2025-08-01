@@ -11,18 +11,17 @@
 
 FROM node:21-slim AS builder
 
-# 启用corepack确保使用正确版本的PNPM
-RUN corepack enable
+# 明确启用并准备指定版本的PNPM
+RUN corepack enable && \
+    corepack prepare pnpm@8.14.0 --activate
 
 COPY . /web
 WORKDIR /web
 
-# 安装依赖并构建（关键修改）
-RUN npm i -g pnpm; \
-    pnpm install --frozen-lockfile; \ 
+# 安装依赖并构建
+RUN pnpm install --frozen-lockfile && \
     pnpm run build
 
-# 后续阶段保持不变
 FROM caddy:2.7.4
 COPY Caddyfile /etc/caddy/Caddyfile
 COPY --from=builder /web/dist /dist
