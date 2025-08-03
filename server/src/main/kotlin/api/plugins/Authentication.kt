@@ -6,7 +6,6 @@ import com.auth0.jwt.algorithms.Algorithm
 import infra.user.User
 import infra.user.UserRepository
 import infra.user.UserRole
-import infra.user.UserRole.Companion.toUserRole
 import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.auth.*
@@ -15,7 +14,6 @@ import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import io.ktor.util.*
 import kotlinx.datetime.Clock
-import kotlinx.datetime.Instant
 import kotlinx.datetime.toJavaInstant
 import org.koin.ktor.ext.get
 import util.serialName
@@ -58,7 +56,8 @@ fun Application.authentication(secret: String) = install(Authentication) {
             JWT.require(Algorithm.HMAC256(secret)).build()
         )
         validate { credential ->
-            if (credential["id"] != null) {
+            val username = credential["username"] ?: credential["sub"]
+            if (username != null) {
                 JWTPrincipal(credential.payload)
             } else {
                 null
@@ -95,20 +94,9 @@ private val PostAuthenticationInterceptors = createRouteScopedPlugin(name = "Use
 
     on(AuthenticationChecked) { call ->
         call.principal<JWTPrincipal>()?.let { principal ->
-            val id = principal["id"]!!
-            val user = try {
-                User(
-                    id = id,
-                    email = principal["email"]!!,
-                    username = principal["username"]!!,
-                    role = principal["role"]!!.toUserRole(),
-                    createdAt = Instant.fromEpochSeconds(
-                        principal.getClaim("createAt", Long::class)!!
-                    ),
-                )
-            } catch (e: Throwable) {
-                userRepo.getUser(id)!!
-            }
+            val username = principal["username"] ?: principal["sub"]!!
+            val user = userRepo.getUserByUsername(username)
+                ?: userRepo.addUser("", username, "")
             if (user.role === UserRole.Banned) {
                 call.respond(HttpStatusCode.Unauthorized, "用户已被封禁")
             } else {

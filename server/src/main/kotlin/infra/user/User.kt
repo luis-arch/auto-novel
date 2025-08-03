@@ -20,30 +20,24 @@ enum class UserRole {
     @SerialName("normal")
     Normal,
 
+    @SerialName("member")
+    Member,
+
+    @SerialName("restricted")
+    Restricted,
+
     @SerialName("banned")
     Banned;
 
     private fun authLevel() = when (this) {
-        Admin -> 4
-        Maintainer -> 3
-        Trusted -> 2
-        Normal -> 1
+        Admin, Maintainer -> 3
+        Trusted, Normal, Member -> 2
+        Restricted -> 1
         Banned -> 0
     }
 
     infix fun atLeast(other: UserRole): Boolean =
         authLevel() >= other.authLevel()
-
-    companion object {
-        fun String.toUserRole(): UserRole =
-            when (this) {
-                "normal" -> Normal
-                "trusted" -> Trusted
-                "maintainer" -> Maintainer
-                "admin" -> Admin
-                else -> Banned
-            }
-    }
 }
 
 @Serializable
