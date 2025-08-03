@@ -289,6 +289,7 @@ private val disgustingFascistNovelList = mapOf(
         "1177354054901629921",
         "16818093082836701336",
         "16817330661737648260",
+        "16818622170290655590",
     ),
     Hameln.id to listOf(
         "291561",
