@@ -78,6 +78,8 @@ export const createAuthRepository = () => {
 
   const refresh = () =>
     AuthApi.refresh().then((token) => {
+      console.log(111);
+      updateToken(token);
       const { sub, exp, role, iat, crat } = jwtDecode<{
         sub: string;
         exp: number;
@@ -128,6 +130,7 @@ export const createAuthRepository = () => {
   };
 
   const logout = () => {
+    updateToken();
     return AuthApi.logout().then(() => {
       authData.value.profile = undefined;
     });

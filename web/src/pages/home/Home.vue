@@ -53,7 +53,15 @@ const loadFavorite = async () => {
       .then((it) => it.items),
   );
 };
-loadFavorite();
+watch(
+  () => whoami.value.isSignedIn,
+  (isSignedIn) => {
+    if (isSignedIn) {
+      loadFavorite();
+    }
+  },
+  { immediate: true },
+);
 
 const mostVisitedWeb = ref<Result<WebNovelOutlineDto[]>>();
 const loadWeb = async () => {
