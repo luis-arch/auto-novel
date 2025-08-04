@@ -2,17 +2,14 @@
 import { useEventListener } from '@vueuse/core';
 
 import { Locator } from '@/data';
+import { AuthUrl } from '@/data/auth/AuthApi';
 
 const props = defineProps<{ from?: string }>();
 const router = useRouter();
 const authRepo = Locator.authRepository();
 
-const authUrl = window.location.hostname.includes('fishhawk.top')
-  ? 'https://auth.fishhawk.top'
-  : 'https://auth.novelia.cc';
-
 useEventListener('message', async (event: MessageEvent) => {
-  if (event.origin === authUrl && event.data.type === 'login_success') {
+  if (event.origin === AuthUrl && event.data.type === 'login_success') {
     await authRepo.refresh().then(() => {
       const from = props.from ?? '/';
       router.replace(from);
@@ -23,7 +20,7 @@ useEventListener('message', async (event: MessageEvent) => {
 
 <template>
   <iframe
-    :src="authUrl + '?app=n'"
+    :src="AuthUrl + '?app=n'"
     frameborder="0"
     allowfullscreen
     style="
