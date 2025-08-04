@@ -78,7 +78,6 @@ export const createAuthRepository = () => {
 
   const refresh = () =>
     AuthApi.refresh().then((token) => {
-      console.log(111);
       updateToken(token);
       const { sub, exp, role, iat, crat } = jwtDecode<{
         sub: string;
