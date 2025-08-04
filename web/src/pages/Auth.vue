@@ -7,11 +7,12 @@ const props = defineProps<{ from?: string }>();
 const router = useRouter();
 const authRepo = Locator.authRepository();
 
+const authUrl = window.location.hostname.includes('fishhawk.top')
+  ? 'https://auth.fishhawk.top'
+  : 'https://auth.novelia.cc';
+
 useEventListener('message', async (event: MessageEvent) => {
-  if (
-    event.origin === 'https://auth.novelia.cc' &&
-    event.data.type === 'login_success'
-  ) {
+  if (event.origin === authUrl && event.data.type === 'login_success') {
     await authRepo.refresh().then(() => {
       const from = props.from ?? '/';
       router.replace(from);
@@ -22,7 +23,7 @@ useEventListener('message', async (event: MessageEvent) => {
 
 <template>
   <iframe
-    src="https://auth.novelia.cc?app=n"
+    :src="authUrl + '?app=n'"
     frameborder="0"
     allowfullscreen
     style="
