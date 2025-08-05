@@ -3,30 +3,18 @@ import { jwtDecode } from 'jwt-decode';
 import { formatError } from '@/data/api';
 import { updateToken } from '@/data/api/client';
 import { UserRole } from '@/model/User';
-import { useSessionStorage } from '@/util';
+import { useLocalStorage } from '@/util';
 
 import { AuthApi } from './AuthApi';
 import { LSKey } from '../LocalStorage';
-
-interface AuthProfile {
-  token: string;
-  username: string;
-  role: UserRole;
-  createdAt: number;
-  expiredAt: number;
-  issuedAt: number;
-}
-
-interface AuthData {
-  profile?: AuthProfile;
-  adminMode: boolean;
-}
+import { AuthData, migrate } from './Auth';
 
 export const createAuthRepository = () => {
-  const authData = useSessionStorage<AuthData>(LSKey.Auth, {
+  const authData = useLocalStorage<AuthData>(LSKey.Auth, {
     profile: undefined,
     adminMode: false,
   });
+  migrate(authData.value);
 
   const whoami = computed(() => {
     const { profile, adminMode } = authData.value;
